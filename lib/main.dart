@@ -134,5 +134,6 @@ class PageVisualierSondages extends StatelessWidget {
     // On top of the navbar will just be a list of sondages that will be taken from a list create in app state with already predefined values
     // I might need to make a class for sondage as well as answers in the sondage 
     // But for now i can just focus on sondage since someone else will be doing the answers 
+    // Im dumb
   }
 }
