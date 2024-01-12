@@ -27,14 +27,23 @@ class Connection extends StatefulWidget {
 
 class _ConnectionState extends State<Connection> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController nomUtilisateurController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  var infoLogin = {
+  Map<String, String> infoLogin = {
     'admin': 'abc',
     'user1': 'abc1',
     'user2': 'abc2',
     'user3': 'abc3'
   };
+
+  bool verificationCred(String username, String password) {
+    for (String key in infoLogin.keys) {
+      if (key == username && infoLogin[key] == password) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +62,13 @@ class _ConnectionState extends State<Connection> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
                 child: TextFormField(
-                  controller: emailController,
+                  controller: nomUtilisateurController,
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(), labelText: "Email"),
+                      border: OutlineInputBorder(),
+                      labelText: "Nom Utilisateur"),
                   validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        !value.contains('@')) {
-                      return 'Un email est requis';
+                    if (value == null || value.isEmpty) {
+                      return 'Un nom d\'utilisateur est requis';
                     }
                     return null;
                   },
@@ -89,6 +97,24 @@ class _ConnectionState extends State<Connection> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        if (verificationCred(nomUtilisateurController.text,
+                                passwordController.text) ==
+                            true) {
+                          //navigation vers page login
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('TEST VALIDATION CORRECTE'),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Nom d\'utilisateur/Mot de passe incorrect'),
+                            ),
+                          );
+                        }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
