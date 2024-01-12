@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'SourceBidon.dart' as SourceBidon;
 
 class PageConnection extends StatelessWidget {
   const PageConnection({super.key});
@@ -29,16 +30,13 @@ class _ConnectionState extends State<Connection> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController nomUtilisateurController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  Map<String, String> infoLogin = {
-    'admin': 'abc',
-    'user1': 'abc1',
-    'user2': 'abc2',
-    'user3': 'abc3'
-  };
 
+  //information login A DÉPLACER DANS UN SOURCE BIDON
+
+  //méthode vérification des informations login
   bool verificationCred(String username, String password) {
-    for (String key in infoLogin.keys) {
-      if (key == username && infoLogin[key] == password) {
+    for (String key in SourceBidon.infoLogin.keys) {
+      if (key == username && SourceBidon.infoLogin[key] == password) {
         return true;
       }
     }
@@ -101,7 +99,17 @@ class _ConnectionState extends State<Connection> {
                                 passwordController.text) ==
                             true) {
                           //navigation vers page login
+                          /*
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PageVisualierSondages(
+                                      nomUtilisateur: nomUtilisateurController.text,
+                                    )),
+                          );
+                          */
 
+                          //ScaffoldMessenger -> pop up pour tester la vérification des infos login (A ENLEVER)
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('TEST VALIDATION CORRECTE'),
