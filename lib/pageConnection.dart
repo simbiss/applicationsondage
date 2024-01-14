@@ -98,13 +98,13 @@ class _ConnectionState extends State<Connection> {
                         if (verificationCred(nomUtilisateurController.text,
                                 passwordController.text) ==
                             true) {
-                          //navigation vers page login
+                          //navigation vers page principal de l'utilisateur apres connection
                           /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PageVisualierSondages(
-                                      nomUtilisateur: nomUtilisateurController.text,
+                                      nomUtilisateur: nomUtilisateurController.text,      // retourne le nom d'utilisateur loger a la page principale apres connection
                                     )),
                           );
                           */
@@ -139,31 +139,5 @@ class _ConnectionState extends State<Connection> {
         ),
       ),
     );
-  }
-}
-
-class MenuPrincipal extends StatelessWidget {
-  const MenuPrincipal({super.key, required this.email});
-
-  final String email;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Page principal'),
-        ),
-        body: Column(
-          children: [
-            Text(email),
-            Center(
-                child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text("Go back!"),
-            ))
-          ],
-        ));
   }
 }
