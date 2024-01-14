@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'pageInscription.dart' as pageInscription;
 import 'SourceBidon.dart' as SourceBidon;
 
 class PageConnection extends StatelessWidget {
@@ -89,8 +90,7 @@ class _ConnectionState extends State<Connection> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
@@ -134,6 +134,25 @@ class _ConnectionState extends State<Connection> {
                   ),
                 ),
               ),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  pageInscription.PageInscription()),
+                        );
+                      },
+                      child: Text('Inscription',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 187, 34, 34),
+                              decoration: TextDecoration.underline)),
+                    ),
+                  )),
             ],
           ),
         ),
