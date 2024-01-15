@@ -1,12 +1,20 @@
 import 'package:applicationsondage/sondages.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:applicationsondage/main.dart';
 
 
-class PageVisualiserSondages extends StatelessWidget {
+class PageVisualiserSondages extends StatefulWidget {
   const PageVisualiserSondages({super.key, required this.title});
   final String title;
+
+  @override
+  State<PageVisualiserSondages> createState() => _PageVisualiserSondagesState();
+}
+
+class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
+  var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -42,15 +50,36 @@ class PageVisualiserSondages extends StatelessWidget {
               ),
         ],
       ),
+      bottomNavigationBar: Container(
+        color: const Color.fromARGB(255, 76, 82, 112),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: GNav(
+            backgroundColor: const Color.fromARGB(255, 76, 82, 112),
+            color: Colors.white,
+            activeColor: Colors.white,
+            tabBackgroundColor: const Color.fromARGB(255, 3, 162, 184),
+            gap: 12,
+            padding: const EdgeInsets.all(20),
+            onTabChange: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            tabs: const [
+              GButton(icon: Icons.home, text: 'Home',),
+              GButton(icon: Icons.favorite, text: 'Favoris',),
+              GButton(icon: Icons.add, text: 'Ajouter',),
+              GButton(icon: Icons.account_circle, text: 'Profil')
+            ],
+          ),
+        ),
+      ),
     );
 
   }
-    // Plan to to make a nav bar at the bottom with an add button to make a new sondage along side a deconnexion button 
-    // On top of the navbar will just be a list of sondages that will be taken from a list create in app state with already predefined values
-    // I might need to make a class for sondage as well as answers in the sondage 
-    // But for now i can just focus on sondage since someone else will be doing the answers 
-    // Im dumb
 
+    // Plan to to make a nav bar at the bottom with an add button to make a new sondage along side a deconnexion button 
   Color colorRotator(int index){
     switch (index % 3) {
       case 0:
@@ -63,5 +92,4 @@ class PageVisualiserSondages extends StatelessWidget {
         return const Color.fromARGB(255, 54, 238, 224);
     }
   }
-
 }
