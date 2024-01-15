@@ -1,9 +1,10 @@
 import 'package:applicationsondage/sondages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:applicationsondage/PageVisualiserSondage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,30 +18,19 @@ class MyApp extends StatelessWidget {
         title: 'Application Sondage',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 246, 82, 160)),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 188, 236, 224)
         ),
-        home: const PageVisualierSondages(title: 'Application Sondage'),
+        home: const PageVisualiserSondages(title: 'Application Sondage'),
       ),  
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
-  var sondages = <String>[];
+  var sondages = <Sondage>[
+    Sondage(uneQuestion: "What color is the sky?", listeReponses: <String>["Red", "Green", "Blue", "Yellow"])
+    ];
 }
 
-class PageVisualierSondages extends StatelessWidget {
-  const PageVisualierSondages({super.key, required this.title});
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-    // Plan to to make a nav bar at the bottom with an add button to make a new sondage along side a deconnexion button 
-    // On top of the navbar will just be a list of sondages that will be taken from a list create in app state with already predefined values
-    // I might need to make a class for sondage as well as answers in the sondage 
-    // But for now i can just focus on sondage since someone else will be doing the answers 
-    // Im dumb
-}
+

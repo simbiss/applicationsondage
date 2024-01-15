@@ -1,6 +1,6 @@
 class Sondage {
-  String? uneQuestion;
-  List<String>? listeReponses;
+  String uneQuestion;
+  List<String> listeReponses;
 
   Sondage({
     required this.uneQuestion,
