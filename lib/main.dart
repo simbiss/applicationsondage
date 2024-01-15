@@ -29,7 +29,9 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var sondages = <Sondage>[
-    Sondage(uneQuestion: "What color is the sky?", listeReponses: <String>["Red", "Green", "Blue", "Yellow"])
+    Sondage(uneQuestion: "What color is the sky?", listeReponses: <String>["Red", "Green", "Blue", "Yellow"]),
+    Sondage(uneQuestion: "What color is the Sun?", listeReponses: <String>["Red", "Green", "Blue", "Yellow"]),
+    Sondage(uneQuestion: "What is the human population?", listeReponses: <String>["5 billion", "6 billion", "7 billion", "8 billion"]),
     ];
 }
 

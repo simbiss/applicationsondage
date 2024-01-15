@@ -33,7 +33,7 @@ class PageVisualiserSondages extends StatelessWidget {
           ),
           for (var unSondage in appState.sondages)
               Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: colorRotator(appState.sondages.indexOf(unSondage)),
                 child: ListTile(
                   leading: const Icon(Icons.poll),
                   title: Text(unSondage.uneQuestion),
@@ -50,4 +50,18 @@ class PageVisualiserSondages extends StatelessWidget {
     // I might need to make a class for sondage as well as answers in the sondage 
     // But for now i can just focus on sondage since someone else will be doing the answers 
     // Im dumb
+
+  Color colorRotator(int index){
+    switch (index % 3) {
+      case 0:
+        return const Color.fromARGB(255, 54, 238, 224);
+      case 1: 
+        return const Color.fromARGB(255, 246, 82, 160);
+      case 2:
+        return const Color.fromARGB(255, 244, 255, 97);
+      default:
+        return const Color.fromARGB(255, 54, 238, 224);
+    }
+  }
+
 }
