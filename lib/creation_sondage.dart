@@ -1,5 +1,10 @@
-import 'package:applicationsondage/listeDesSondage.dart';
+import 'package:applicationsondage/PageVisualiserSondage.dart';
+import 'package:applicationsondage/main.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
+
+import 'sondages.dart';
 
 class CreationSondage extends StatelessWidget {
   const CreationSondage({Key? key});
@@ -9,9 +14,10 @@ class CreationSondage extends StatelessWidget {
     return MaterialApp(
       title: 'Créer un sondage',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 246, 82, 160)),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 188, 236, 224)),
       home: const PageCreation(title: 'Page de création du sondage'),
     );
   }
@@ -26,18 +32,9 @@ class PageCreation extends StatefulWidget {
   State<PageCreation> createState() => _PageCreationState();
 }
 
-class Sondage {
-  String question;
-  List<String> reponses;
-
-  Sondage({
-    required this.question,
-    required this.reponses,
-  });
-}
-
 class _PageCreationState extends State<PageCreation> {
   int _nombresDeReponses = 0;
+  var selectedIndex = 2;
   TextEditingController _questionController = TextEditingController();
   List<TextEditingController> _responseControllers = [];
 
@@ -47,6 +44,50 @@ class _PageCreationState extends State<PageCreation> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+      ),
+      bottomNavigationBar: Container(
+        color: const Color.fromARGB(255, 76, 82, 112),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: GNav(
+            backgroundColor: const Color.fromARGB(255, 76, 82, 112),
+            color: Colors.white,
+            activeColor: Colors.white,
+            tabBackgroundColor: const Color.fromARGB(255, 3, 162, 184),
+            gap: 12,
+            padding: const EdgeInsets.all(20),
+            onTabChange: (index) {
+              setState(() {
+                selectedIndex = index;
+                if (index == 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PageVisualiserSondages(
+                        title: 'Page de la liste des sondages',
+                      ),
+                    ),
+                  );
+                }
+              });
+            },
+            tabs: const [
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              ),
+              GButton(
+                icon: Icons.favorite,
+                text: 'Favoris',
+              ),
+              GButton(
+                icon: Icons.add,
+                text: 'Ajouter',
+              ),
+              GButton(icon: Icons.account_circle, text: 'Profil')
+            ],
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -117,15 +158,32 @@ class _PageCreationState extends State<PageCreation> {
     for (var reponse in _responseControllers) {
       reps.add(reponse.text);
     }
-    Sondage sondage = Sondage(question: ques, reponses: reps);
-    print('Enregistrement... ${sondage.question} ${sondage.reponses}');
-    _listeSondages.add(sondage);
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ListeSondagesPage(listeSondages: _listeSondages),
-      ),
-    );
+    Sondage sondage = Sondage(uneQuestion: ques, listeReponses: reps);
+
+    print('Enregistrement... ${sondage.uneQuestion} ${sondage.listeReponses}');
+
+    if (_isQuestionAlreadyExists(ques)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Un sondage avec la même question existe déjà!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } else {
+      context.read<MyAppState>().addSondage(sondage);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Sondage créé avec succès!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  bool _isQuestionAlreadyExists(String question) {
+    var appState = context.read<MyAppState>();
+    return appState.sondages.any((sondage) => sondage.uneQuestion == question);
   }
 }

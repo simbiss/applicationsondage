@@ -1,6 +1,8 @@
 import 'package:applicationsondage/creation_sondage.dart';
 import 'package:flutter/material.dart';
 
+import 'sondages.dart';
+
 class ListeSondagesPage extends StatelessWidget {
   final List<Sondage> listeSondages;
 
@@ -18,8 +20,8 @@ class ListeSondagesPage extends StatelessWidget {
         itemBuilder: (context, index) {
           Sondage sondage = listeSondages[index];
           return ListTile(
-            title: Text(sondage.question),
-            subtitle: Text(sondage.reponses.join(", ")),
+            title: Text(sondage.uneQuestion),
+            subtitle: Text(sondage.listeReponses.join(", ")),
           );
         },
       ),
