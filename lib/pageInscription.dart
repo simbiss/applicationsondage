@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pageConnection.dart';
+import 'pageConnection.dart' as pageConnection;
 import 'SourceBidon.dart' as SourceBidon;
 
 class PageInscription extends StatelessWidget {
@@ -31,10 +31,29 @@ class _InscriptionState extends State<Inscription> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController nomUtilisateurController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmationPasswordController =
+      TextEditingController();
 
 //méthode pour vérification disponibilité du nom Utilisateur
-//..
-//..
+  bool verificationDispoNomUtilisateur(String username) {
+    for (String key in SourceBidon.infoLogin.keys) {
+      if (username == key) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool verificationMdpIdentique(String mdp, String confirmationMdp) {
+    if (mdp == confirmationMdp) {
+      return true;
+    }
+    return false;
+  }
+
+  void ajoutNouvelleUtilisateur(String username, String mdp) {
+    SourceBidon.infoLogin.addEntries([MapEntry(username, mdp)]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +79,8 @@ class _InscriptionState extends State<Inscription> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Un nom d\'utilisateur est requis';
+                    } else if (verificationDispoNomUtilisateur(value) == true) {
+                      return 'Nom d\'utilisateur non disponible';
                     }
                     return null;
                   },
@@ -83,10 +104,49 @@ class _InscriptionState extends State<Inscription> {
               ),
               Padding(
                 padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
+                child: TextFormField(
+                  controller: confirmationPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Confirmation mot de passe"),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Un mot de passe est requis';
+                    } else if (verificationMdpIdentique(
+                            passwordController.text, value) ==
+                        false) {
+                      return 'Les mots de passe ne sont pas identique';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: Center(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ajoutNouvelleUtilisateur(nomUtilisateurController.text,
+                            passwordController.text);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  pageConnection.PageConnection()),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Information non valide'),
+                          ),
+                        );
+                      }
+                    },
                     child: const Text('Créer compte'),
                   ),
                 ),
