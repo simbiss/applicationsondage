@@ -149,19 +149,26 @@ class _PageCreationState extends State<PageCreation> {
     return true;
   }
 
-  List<Sondage> _listeSondages = [];
-
   void _onSavePressed() {
     String ques = _questionController.text;
     List<String> reps = [];
+    Map<String, int> listeReponses = {};
 
     for (var reponse in _responseControllers) {
       reps.add(reponse.text);
     }
+    for (var i = 0; i < reps.length; i++) {
+      listeReponses.addEntries([MapEntry(reps[i], 0)]);
+    }
+    int indexSondage = context.read<MyAppState>().sondages.length + 1;
+    Sondage sondage = Sondage(
+        id: indexSondage,
+        uneQuestion: ques,
+        listeReponses: listeReponses,
+        utilisateur: context.read<MyAppState>().utilisateurLoggedIn);
 
-    Sondage sondage = Sondage(uneQuestion: ques, listeReponses: reps);
-
-    print('Enregistrement... ${sondage.uneQuestion} ${sondage.listeReponses}');
+    print(
+        'Enregistrement... ${sondage.uneQuestion} ${sondage.listeReponses} ${sondage.utilisateur?.username}');
 
     if (_isQuestionAlreadyExists(ques)) {
       ScaffoldMessenger.of(context).showSnackBar(

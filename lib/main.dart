@@ -1,8 +1,8 @@
+import 'package:applicationsondage/pageConnection.dart';
 import 'package:applicationsondage/sondages.dart';
 import 'package:applicationsondage/utilisateur.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:applicationsondage/PageVisualiserSondage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,13 +22,15 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(
                 seedColor: const Color.fromARGB(255, 246, 82, 160)),
             scaffoldBackgroundColor: const Color.fromARGB(255, 188, 236, 224)),
-        home: const PageVisualiserSondages(title: 'Application Sondage'),
+        home: const PageConnection(),
       ),
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
+  Utilisateur? utilisateurLoggedIn;
+
   var sondages = <Sondage>[
     Sondage(
         id: 1,
@@ -59,6 +61,12 @@ class MyAppState extends ChangeNotifier {
 
   void supprimerSondage(Sondage sondage) {
     sondages.remove(sondage);
+    notifyListeners();
+  }
+
+  void setUtilisateur(String username, String mdp) {
+    utilisateurLoggedIn?.username = username;
+    utilisateurLoggedIn?.motDePasse = mdp;
     notifyListeners();
   }
 }

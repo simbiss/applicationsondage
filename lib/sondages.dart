@@ -4,7 +4,7 @@ class Sondage {
   int id;
   String uneQuestion;
   Map<String, int> listeReponses;
-  Utilisateur utilisateur;
+  Utilisateur? utilisateur;
   bool fini = false;
 
   Sondage(

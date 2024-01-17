@@ -33,11 +33,13 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
     return Scaffold(
       body: ListView(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(20),
-            child: Text("La liste des sondages",
+            child: Text(
+                "La liste des sondages, Bienvenue ${appState.utilisateurLoggedIn?.username}",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
           ),
           for (var unSondage in appState.sondages)
             Container(
