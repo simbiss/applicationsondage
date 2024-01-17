@@ -1,4 +1,5 @@
 import 'package:applicationsondage/sondages.dart';
+import 'package:applicationsondage/utilisateur.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:applicationsondage/PageVisualiserSondage.dart';
@@ -30,19 +31,25 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   var sondages = <Sondage>[
     Sondage(
+        id: 1,
         uneQuestion: "What color is the sky?",
-        listeReponses: <String>["Red", "Green", "Blue", "Yellow"]),
+        listeReponses: {'Red': 0, 'Green': 0, 'Blue': 0, 'Yellow': 0},
+        utilisateur: Utilisateur(username: "admin", motDePasse: "abc")),
     Sondage(
+        id: 2,
         uneQuestion: "What color is the Sun?",
-        listeReponses: <String>["Red", "Green", "Blue", "Yellow"]),
+        listeReponses: {'Red': 0, 'Green': 0, 'Blue': 0, 'Yellow': 0},
+        utilisateur: Utilisateur(username: "admin", motDePasse: "abc")),
     Sondage(
+        id: 3,
         uneQuestion: "What is the human population?",
-        listeReponses: <String>[
-          "5 billion",
-          "6 billion",
-          "7 billion",
-          "8 billion"
-        ]),
+        listeReponses: {
+          '5 billion': 0,
+          '6 billion': 0,
+          '7 billion': 0,
+          '8 billion': 0
+        },
+        utilisateur: Utilisateur(username: "admin", motDePasse: "abc")),
   ];
 
   void addSondage(Sondage sondage) {
