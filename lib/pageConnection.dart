@@ -1,4 +1,9 @@
+import 'package:applicationsondage/PageVisualiserSondage.dart';
+import 'package:applicationsondage/utilisateur.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'main.dart';
+import 'pageInscription.dart' as pageInscription;
 import 'SourceBidon.dart' as SourceBidon;
 
 class PageConnection extends StatelessWidget {
@@ -34,9 +39,16 @@ class _ConnectionState extends State<Connection> {
   //information login A DÉPLACER DANS UN SOURCE BIDON
 
   //méthode vérification des informations login
-  bool verificationCred(String username, String password) {
-    for (String key in SourceBidon.infoLogin.keys) {
-      if (key == username && SourceBidon.infoLogin[key] == password) {
+  bool verificationCred(String username, String password, MyAppState appState) {
+    for (var utilisateur in SourceBidon.infoLogin) {
+      if (utilisateur.username == username &&
+          utilisateur.motDePasse == password) {
+        setState(() {
+          {
+            appState.utilisateurLoggedIn =
+                Utilisateur(username: username, motDePasse: password);
+          }
+        });
         return true;
       }
     }
@@ -45,6 +57,7 @@ class _ConnectionState extends State<Connection> {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -89,31 +102,22 @@ class _ConnectionState extends State<Connection> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         if (verificationCred(nomUtilisateurController.text,
-                                passwordController.text) ==
+                                passwordController.text, appState) ==
                             true) {
                           //navigation vers page principal de l'utilisateur apres connection
-                          /*
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PageVisualierSondages(
-                                      nomUtilisateur: nomUtilisateurController.text,      // retourne le nom d'utilisateur loger a la page principale apres connection
-                                    )),
-                          );
-                          */
-
-                          //ScaffoldMessenger -> pop up pour tester la vérification des infos login (A ENLEVER)
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('TEST VALIDATION CORRECTE'),
-                            ),
+                                builder: (context) => PageVisualiserSondages(
+                                    title:
+                                        "Application Sondage, ${nomUtilisateurController}")),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -134,6 +138,25 @@ class _ConnectionState extends State<Connection> {
                   ),
                 ),
               ),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  pageInscription.PageInscription()),
+                        );
+                      },
+                      child: const Text('Inscription',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 187, 34, 34),
+                              decoration: TextDecoration.underline)),
+                    ),
+                  )),
             ],
           ),
         ),
