@@ -12,4 +12,9 @@ class Sondage {
       required this.uneQuestion,
       required this.listeReponses,
       required this.utilisateur});
+
+  void repondre(String choix) {
+    listeReponses.update(choix, (value) => value + 1);
+    print("voivi la liste :  ${listeReponses}");
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:applicationsondage/DetailsSondage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,12 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
               color: colorRotator(appState.sondages.indexOf(unSondage)),
               child: InkWell(
                 onTap: () {
-                  //ici on va ajouter la navigation a la page de marielle
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DetailsSondages(title: "", sondage: unSondage)),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
