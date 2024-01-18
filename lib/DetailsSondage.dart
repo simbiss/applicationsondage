@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'creation_sondage.dart';
 import 'main.dart';
+import 'ResultatSondage.dart';
 
 class DetailsSondages extends StatefulWidget {
   const DetailsSondages(
@@ -78,6 +79,17 @@ class _DetailsSondagesState extends State<DetailsSondages> {
               );
             },
             child: const Text("Voter"),
+          ),
+          ElevatedButton(onPressed: () {
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => ResultatSondage(
+                title: 'Résultat du sondage', 
+                sondage: widget.sondage)
+                )
+              );
+          }, 
+          child: const Text('Voir les résultats')
           )
         ],
       ),
