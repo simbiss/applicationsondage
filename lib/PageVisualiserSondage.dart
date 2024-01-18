@@ -1,4 +1,5 @@
 import 'package:applicationsondage/DetailsSondage.dart';
+import 'package:applicationsondage/PageFavoris.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +126,17 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CreationSondage(),
+                      builder: (context) => const CreationSondage(),
+                    ),
+                  );
+                }
+                if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PageFavoris(
+                        title: 'Les sondages favoris',
+                      ),
                     ),
                   );
                 }
