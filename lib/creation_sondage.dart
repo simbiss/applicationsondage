@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 
+import 'PageFavoris.dart';
 import 'sondages.dart';
 
 class CreationSondage extends StatelessWidget {
@@ -56,6 +57,7 @@ class _PageCreationState extends State<PageCreation> {
             tabBackgroundColor: const Color.fromARGB(255, 3, 162, 184),
             gap: 12,
             padding: const EdgeInsets.all(20),
+            selectedIndex: 2,
             onTabChange: (index) {
               setState(() {
                 selectedIndex = index;
@@ -65,6 +67,16 @@ class _PageCreationState extends State<PageCreation> {
                     MaterialPageRoute(
                       builder: (context) => const PageVisualiserSondages(
                         title: 'Page de la liste des sondages',
+                      ),
+                    ),
+                  );
+                }
+                if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PageFavoris(
+                        title: 'Les sondages favoris',
                       ),
                     ),
                   );

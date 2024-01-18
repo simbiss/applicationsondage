@@ -54,13 +54,25 @@ class MyAppState extends ChangeNotifier {
         utilisateur: Utilisateur(username: "admin", motDePasse: "abc")),
   ];
 
+  var sondagesFavoris = <Sondage>[];
+
   void addSondage(Sondage sondage) {
     sondages.add(sondage);
     notifyListeners();
   }
 
+  void addSondageFavori(Sondage sondage) {
+    sondagesFavoris.add(sondage);
+    notifyListeners();
+  }
+
   void supprimerSondage(Sondage sondage) {
     sondages.remove(sondage);
+    notifyListeners();
+  }
+
+  void supprimerSondageFavori(Sondage sondage) {
+    sondagesFavoris.remove(sondage);
     notifyListeners();
   }
 

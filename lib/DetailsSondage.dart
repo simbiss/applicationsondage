@@ -3,8 +3,10 @@ import 'package:applicationsondage/pageReponse.dart';
 import 'package:applicationsondage/sondages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 import 'creation_sondage.dart';
+import 'main.dart';
 
 class DetailsSondages extends StatefulWidget {
   const DetailsSondages(
@@ -18,8 +20,10 @@ class DetailsSondages extends StatefulWidget {
 
 class _DetailsSondagesState extends State<DetailsSondages> {
   var selectedIndex = 0;
+  bool isFavori = false;
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
     return Scaffold(
       body: ListView(
         children: [
@@ -30,8 +34,30 @@ class _DetailsSondagesState extends State<DetailsSondages> {
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
           ),
-          Container(
-            child: Text("Cree par : ${widget.sondage.utilisateur?.username}"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                child:
+                    Text("Créé par : ${widget.sondage.utilisateur?.username}"),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (appState.sondagesFavoris.contains(widget.sondage)) {
+                      appState.supprimerSondageFavori(widget.sondage);
+                    } else {
+                      appState.addSondageFavori(widget.sondage);
+                    }
+                  });
+                },
+                icon: Icon(
+                  appState.sondagesFavoris.contains(widget.sondage)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                ),
+              ),
+            ],
           ),
           for (var map in widget.sondage.listeReponses.entries)
             ListTile(
