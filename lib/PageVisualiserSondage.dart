@@ -163,7 +163,6 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
     );
   }
 
-  // Plan to to make a nav bar at the bottom with an add button to make a new sondage along side a deconnexion button
   Color colorRotator(int index) {
     switch (index % 3) {
       case 0:
@@ -173,7 +172,7 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
       case 2:
         return const Color.fromARGB(255, 244, 255, 97);
       default:
-        return const Color.fromARGB(255, 54, 238, 224);
+        return const Color.fromARGB(255, 54, 238, 94);
     }
   }
 }

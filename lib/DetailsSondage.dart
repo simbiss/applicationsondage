@@ -8,7 +8,7 @@ import 'indicator.dart';
 import 'creation_sondage.dart';
 import 'main.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'ResultatSondage.dart';
+import 'PageVisualiserSondage.dart';
 
 class DetailsSondages extends StatefulWidget {
   const DetailsSondages(
@@ -22,7 +22,8 @@ class DetailsSondages extends StatefulWidget {
 
 class _DetailsSondagesState extends State<DetailsSondages> {
   var selectedIndex = 0;
-  int touchedIndex = -1;
+  int indexPieColors = 0;
+  int indexKeyColors = 0;
   bool isFavori = false;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _DetailsSondagesState extends State<DetailsSondages> {
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Text(widget.sondage.uneQuestion,
                 textAlign: TextAlign.center,
                 style:
@@ -86,42 +87,50 @@ class _DetailsSondagesState extends State<DetailsSondages> {
             height: 4,
           ),
           AspectRatio(
-              aspectRatio: 1,
-              child: PieChart(
-                PieChartData(
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 40,
-                  sections: [
-                    for (var uneReponse in widget.sondage.listeReponses.entries)
-                      PieChartSectionData(
-                        color: Colors.blue,
-                        value: uneReponse.value.toDouble(),
-                        title: uneReponse.key,
-                        radius: 60,
-                        titleStyle: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          shadows: [Shadow(color: Colors.black, blurRadius: 2)],
-                        ),
-                  )],
-                ),
+            aspectRatio: 1,
+            child: PieChart(PieChartData(
+              sectionsSpace: 0,
+              centerSpaceRadius: 40,
+              sections: List.generate(
+                widget.sondage.listeReponses.entries.length,
+                (index) {
+                  var uneReponse =
+                      widget.sondage.listeReponses.entries.elementAt(index);
+                  return PieChartSectionData(
+                    color: colorRotator(index),
+                    value: uneReponse.value.toDouble(),
+                    title: uneReponse.key,
+                    radius: 60,
+                    titleStyle: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: [Shadow(color: Colors.black, blurRadius: 2)],
+                    ),
+                  );
+                },
               ),
-            ),
+            )),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              for (var uneReponse in widget.sondage.listeReponses.entries)
-              Indicator(
-                color: Colors.blue,
-                text: uneReponse.key,
-                isSquare: true,
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-            ],
+            children: List.generate(widget.sondage.listeReponses.entries.length, 
+            (index) {
+              var uneReponse = widget.sondage.listeReponses.entries.elementAt(index);
+              return Column(
+                children: [
+                  Indicator(
+                    color: colorRotator(index),
+                    text: uneReponse.key,
+                    isSquare: true,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  )
+                ],
+              );
+            })
           ),
           const SizedBox(
             width: 28,
@@ -181,5 +190,19 @@ class _DetailsSondagesState extends State<DetailsSondages> {
       ),
     );
   }
-}
 
+  Color colorRotator(int index) {
+    switch (index % 4) {
+      case 0:
+        return const Color.fromARGB(255, 54, 238, 224);
+      case 1:
+        return const Color.fromARGB(255, 246, 82, 160);
+      case 2:
+        return const Color.fromARGB(255, 244, 255, 97);
+      case 3:
+        return const Color.fromARGB(255, 54, 238, 94);
+      default:
+        return const Color.fromARGB(255, 54, 238, 94);
+    }
+  }
+}
