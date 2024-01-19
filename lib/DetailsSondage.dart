@@ -4,9 +4,10 @@ import 'package:applicationsondage/sondages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
-
+import 'indicator.dart';
 import 'creation_sondage.dart';
 import 'main.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'ResultatSondage.dart';
 
 class DetailsSondages extends StatefulWidget {
@@ -21,13 +22,14 @@ class DetailsSondages extends StatefulWidget {
 
 class _DetailsSondagesState extends State<DetailsSondages> {
   var selectedIndex = 0;
+  int touchedIndex = -1;
   bool isFavori = false;
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     return Scaffold(
       body: ListView(
-        children: [
+        children: <Widget>[
           Padding(
             padding: EdgeInsets.all(20),
             child: Text(widget.sondage.uneQuestion,
@@ -80,17 +82,50 @@ class _DetailsSondagesState extends State<DetailsSondages> {
             },
             child: const Text("Voter"),
           ),
-          ElevatedButton(onPressed: () {
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => ResultatSondage(
-                title: 'Résultat du sondage', 
-                sondage: widget.sondage)
-                )
-              );
-          }, 
-          child: const Text('Voir les résultats')
-          )
+          const SizedBox(
+            height: 4,
+          ),
+          AspectRatio(
+              aspectRatio: 1,
+              child: PieChart(
+                PieChartData(
+                  sectionsSpace: 0,
+                  centerSpaceRadius: 40,
+                  sections: [
+                    for (var uneReponse in widget.sondage.listeReponses.entries)
+                      PieChartSectionData(
+                        color: Colors.blue,
+                        value: uneReponse.value.toDouble(),
+                        title: uneReponse.key,
+                        radius: 60,
+                        titleStyle: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: [Shadow(color: Colors.black, blurRadius: 2)],
+                        ),
+                  )],
+                ),
+              ),
+            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              for (var uneReponse in widget.sondage.listeReponses.entries)
+              Indicator(
+                color: Colors.blue,
+                text: uneReponse.key,
+                isSquare: true,
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 28,
+          ),
         ],
       ),
       bottomNavigationBar: Container(
@@ -147,3 +182,4 @@ class _DetailsSondagesState extends State<DetailsSondages> {
     );
   }
 }
+
