@@ -1,3 +1,4 @@
+import 'package:applicationsondage/PageCompte.dart';
 import 'package:applicationsondage/PageVisualiserSondage.dart';
 import 'package:applicationsondage/main.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,14 @@ class _PageCreationState extends State<PageCreation> {
                       builder: (context) => const PageFavoris(
                         title: 'Les sondages favoris',
                       ),
+                    ),
+                  );
+                }
+                if (index == 3) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PageCompteUtilisateur(),
                     ),
                   );
                 }
