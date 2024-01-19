@@ -23,6 +23,7 @@ class _PageReponseState extends State<PageReponse> {
   var selectedIndex = 0;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool showError = false;
+  bool hasVoted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,25 +79,32 @@ class _PageReponseState extends State<PageReponse> {
                         });
                       } else {
                         showError = false;
-                        widget.sondage.repondre(widget
-                            .sondage.listeReponses.keys
-                            .elementAt(selectedOption! - 1));
+                        if (appState.hasVoted(
+                                widget.sondage, appState.utilisateurLoggedIn) ==
+                            true) {
+                              setState(() {
+                                hasVoted = true;
+                              });
+                        } else {
+                          hasVoted = false;
+                          widget.sondage.repondre(widget
+                              .sondage.listeReponses.keys
+                              .elementAt(selectedOption! - 1));
 
-                        appState.addVote(Votes(
-                          id: appState.votesDesSondages.length + 1,
-                            sondage: widget.sondage,
-                            utilisateur: appState.utilisateurLoggedIn)
-                        );
-
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailsSondages(
-                              title: widget.sondage.uneQuestion,
+                          appState.addVote(Votes(
+                              id: appState.votesDesSondages.length + 1,
                               sondage: widget.sondage,
+                              utilisateur: appState.utilisateurLoggedIn));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailsSondages(
+                                title: widget.sondage.uneQuestion,
+                                sondage: widget.sondage,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       }
                     },
                     child: const Text('Envoyer'),
@@ -106,6 +114,11 @@ class _PageReponseState extends State<PageReponse> {
                       'Veuillez choisir une option',
                       style: TextStyle(color: Colors.red),
                     ),
+                  if (hasVoted)
+                    const Text(
+                      'Vous avez déjâ voté dans ce sondage...',
+                      style: TextStyle(color: Colors.red),
+                    )
                 ],
               ),
             ),
