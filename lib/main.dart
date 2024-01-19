@@ -1,3 +1,4 @@
+import 'package:applicationsondage/Votes.dart';
 import 'package:applicationsondage/pageConnection.dart';
 import 'package:applicationsondage/sondages.dart';
 import 'package:applicationsondage/utilisateur.dart';
@@ -56,6 +57,8 @@ class MyAppState extends ChangeNotifier {
 
   var sondagesFavoris = <Sondage>[];
 
+  var votesDesSondages = <Votes>[];
+
   void addSondage(Sondage sondage) {
     sondages.add(sondage);
     notifyListeners();
@@ -80,5 +83,30 @@ class MyAppState extends ChangeNotifier {
     utilisateurLoggedIn?.username = username;
     utilisateurLoggedIn?.motDePasse = mdp;
     notifyListeners();
+  }
+
+  void addVote(Votes vote){
+    votesDesSondages.add(vote);
+    notifyListeners();
+  }
+
+  List<Votes> findAllVotesParSondage(Sondage sondage){
+    List<Votes> sondagesVotes = [];
+    for (var unVote in votesDesSondages){
+      if (unVote.sondage == sondage){
+        sondagesVotes.add(unVote);
+      }
+    }
+    return sondagesVotes;
+  }
+
+  bool hasVoted(Sondage sondage, Utilisateur utilisateur){
+    List<Votes> sondagesVotes = findAllVotesParSondage(sondage);
+    for (var unVote in sondagesVotes){
+      if (unVote.utilisateur == utilisateur){
+        return true;
+      }
+    }
+    return false;
   }
 }

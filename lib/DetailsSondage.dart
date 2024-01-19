@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'indicator.dart';
 import 'creation_sondage.dart';
 import 'main.dart';
+import 'Votes.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class DetailsSondages extends StatefulWidget {

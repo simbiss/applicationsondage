@@ -1,9 +1,12 @@
 import 'package:applicationsondage/DetailsSondage.dart';
+import 'package:applicationsondage/Votes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 import 'PageVisualiserSondage.dart';
 import 'creation_sondage.dart';
 import 'sondages.dart';
+import 'main.dart';
 
 class PageReponse extends StatefulWidget {
   const PageReponse({Key? key, required this.title, required this.sondage});
@@ -23,6 +26,7 @@ class _PageReponseState extends State<PageReponse> {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -77,6 +81,12 @@ class _PageReponseState extends State<PageReponse> {
                         widget.sondage.repondre(widget
                             .sondage.listeReponses.keys
                             .elementAt(selectedOption! - 1));
+
+                        appState.addVote(Votes(
+                          id: appState.votesDesSondages.length + 1,
+                            sondage: widget.sondage,
+                            utilisateur: appState.utilisateurLoggedIn)
+                        );
 
                         Navigator.pushReplacement(
                           context,
