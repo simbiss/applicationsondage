@@ -7,6 +7,9 @@ import 'PageVisualiserSondage.dart';
 import 'creation_sondage.dart';
 import 'sondages.dart';
 import 'main.dart';
+import 'package:applicationsondage/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class PageReponse extends StatefulWidget {
   const PageReponse({Key? key, required this.title, required this.sondage});
@@ -82,9 +85,9 @@ class _PageReponseState extends State<PageReponse> {
                         if (appState.hasVoted(
                                 widget.sondage, appState.utilisateurLoggedIn) ==
                             true) {
-                              setState(() {
-                                hasVoted = true;
-                              });
+                          setState(() {
+                            hasVoted = true;
+                          });
                         } else {
                           hasVoted = false;
                           widget.sondage.repondre(widget
@@ -107,16 +110,16 @@ class _PageReponseState extends State<PageReponse> {
                         }
                       }
                     },
-                    child: const Text('Envoyer'),
+                    child: Text(AppLocalizations.of(context)!.btn_send),
                   ),
                   if (showError)
-                    const Text(
-                      'Veuillez choisir une option',
+                    Text(
+                      AppLocalizations.of(context)!.erreur_send_vote,
                       style: TextStyle(color: Colors.red),
                     ),
                   if (hasVoted)
-                    const Text(
-                      'Vous avez déjâ voté dans ce sondage...',
+                    Text(
+                      AppLocalizations.of(context)!.already_voted,
                       style: TextStyle(color: Colors.red),
                     )
                 ],
@@ -158,20 +161,22 @@ class _PageReponseState extends State<PageReponse> {
                 }
               });
             },
-            tabs: const [
+            tabs: [
               GButton(
                 icon: Icons.home,
-                text: 'Home',
+                text: AppLocalizations.of(context)!.home_page,
               ),
               GButton(
                 icon: Icons.favorite,
-                text: 'Favoris',
+                text: AppLocalizations.of(context)!.favoris,
               ),
               GButton(
                 icon: Icons.add,
-                text: 'Ajouter',
+                text: AppLocalizations.of(context)!.add,
               ),
-              GButton(icon: Icons.account_circle, text: 'Profil')
+              GButton(
+                  icon: Icons.account_circle,
+                  text: AppLocalizations.of(context)!.profil)
             ],
           ),
         ),

@@ -72,7 +72,8 @@ class _DetailsSondagesState extends State<DetailsSondages> {
             ListTile(
               tileColor: const Color.fromARGB(255, 54, 238, 224),
               title: Text("${map.key} "),
-              subtitle: Text("Nombre de repondants : ${map.value}"),
+              subtitle: Text(
+                  AppLocalizations.of(context)!.nbr_answers(map.value.toInt())),
             ),
           ElevatedButton(
             onPressed: () {

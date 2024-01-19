@@ -125,9 +125,15 @@
     "@opt_yellow": {
         "description": "5"
     },
-    "nbr_answers": "Number of respondents: ",
+    "nbr_answers": "Number of respondents: {nbrRepondants}",
     "@nbr_answers": {
-        "description": "nbr respons"
+        "description": "nbr respons",
+        "placeholders": {
+            "nbrRepondants":{
+                "type": "int"
+            }
+        }
+
     },
     "btn_send": "Send",
     "@btn_send": {
@@ -188,5 +194,10 @@
     "survey": "survey",
     "@survey": {
         "description": "survey"
+    },
+    "already_voted": "You have already voted in this poll...",
+    "@already_voted":{
+        "description": "already_voted"
     }
+
 }
