@@ -4,10 +4,12 @@ import 'package:applicationsondage/sondages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
-
 import 'creation_sondage.dart';
 import 'main.dart';
 import 'ResultatSondage.dart';
+import 'package:applicationsondage/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class DetailsSondages extends StatefulWidget {
   const DetailsSondages(
@@ -39,8 +41,8 @@ class _DetailsSondagesState extends State<DetailsSondages> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                child:
-                    Text("Créé par : ${widget.sondage.utilisateur?.username}"),
+                child: Text(AppLocalizations.of(context)!.created_by(
+                    "${widget.sondage.utilisateur?.username.toString()}")),
               ),
               IconButton(
                 onPressed: () {
@@ -78,19 +80,18 @@ class _DetailsSondagesState extends State<DetailsSondages> {
                 ),
               );
             },
-            child: const Text("Voter"),
+            child: Text(AppLocalizations.of(context)!.btn_vote),
           ),
-          ElevatedButton(onPressed: () {
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => ResultatSondage(
-                title: 'Résultat du sondage', 
-                sondage: widget.sondage)
-                )
-              );
-          }, 
-          child: const Text('Voir les résultats')
-          )
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultatSondage(
+                            title: 'Résultat du sondage',
+                            sondage: widget.sondage)));
+              },
+              child: Text(AppLocalizations.of(context)!.btn_result))
         ],
       ),
       bottomNavigationBar: Container(

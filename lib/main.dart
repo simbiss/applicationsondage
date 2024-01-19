@@ -1,8 +1,11 @@
 import 'package:applicationsondage/pageConnection.dart';
 import 'package:applicationsondage/sondages.dart';
 import 'package:applicationsondage/utilisateur.dart';
+import 'package:applicationsondage/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +25,13 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(
                 seedColor: const Color.fromARGB(255, 246, 82, 160)),
             scaffoldBackgroundColor: const Color.fromARGB(255, 188, 236, 224)),
+        supportedLocales: L10n.all,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
         home: const PageConnection(),
       ),
     );
@@ -30,7 +40,6 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   Utilisateur? utilisateurLoggedIn;
-
   var sondages = <Sondage>[
     Sondage(
         id: 1,

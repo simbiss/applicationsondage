@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'pageConnection.dart' as pageConnection;
 import 'SourceBidon.dart' as SourceBidon;
 import 'utilisateur.dart';
+import 'package:applicationsondage/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class PageInscription extends StatelessWidget {
   const PageInscription({super.key});
@@ -15,6 +18,12 @@ class PageInscription extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 250, 73, 73)),
         useMaterial3: true,
       ),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
       home: const Inscription(title: 'Application Sondage'),
     );
   }
@@ -74,14 +83,14 @@ class _InscriptionState extends State<Inscription> {
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
                 child: TextFormField(
                   controller: nomUtilisateurController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Nom Utilisateur"),
+                      labelText: AppLocalizations.of(context)!.username),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Un nom d\'utilisateur est requis';
+                      return AppLocalizations.of(context)!.errer_username;
                     } else if (verificationDispoNomUtilisateur(value) == true) {
-                      return 'Nom d\'utilisateur non disponible';
+                      return AppLocalizations.of(context)!.unvalide_username;
                     }
                     return null;
                   },
@@ -93,11 +102,12 @@ class _InscriptionState extends State<Inscription> {
                 child: TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(), labelText: "Mot de passe"),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.password),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Un mot de passe est requis';
+                      return AppLocalizations.of(context)!.errer_password;
                     }
                     return null;
                   },
@@ -109,16 +119,18 @@ class _InscriptionState extends State<Inscription> {
                 child: TextFormField(
                   controller: confirmationPasswordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Confirmation mot de passe"),
+                      labelText:
+                          AppLocalizations.of(context)!.password_confirmation),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Un mot de passe est requis';
+                      return AppLocalizations.of(context)!.errer_password;
                     } else if (verificationMdpIdentique(
                             passwordController.text, value) ==
                         false) {
-                      return 'Les mots de passe ne sont pas identique';
+                      return AppLocalizations.of(context)!
+                          .errer_non_identical_password;
                     }
                     return null;
                   },
@@ -142,13 +154,14 @@ class _InscriptionState extends State<Inscription> {
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Information non valide'),
+                          SnackBar(
+                            content: Text(
+                                AppLocalizations.of(context)!.invalid_info),
                           ),
                         );
                       }
                     },
-                    child: const Text('Créer compte'),
+                    child: Text(AppLocalizations.of(context)!.create_acc),
                   ),
                 ),
               ),
