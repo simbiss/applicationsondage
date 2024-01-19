@@ -2,8 +2,11 @@ import 'package:applicationsondage/Votes.dart';
 import 'package:applicationsondage/pageConnection.dart';
 import 'package:applicationsondage/sondages.dart';
 import 'package:applicationsondage/utilisateur.dart';
+import 'package:applicationsondage/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +26,13 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(
                 seedColor: const Color.fromARGB(255, 246, 82, 160)),
             scaffoldBackgroundColor: const Color.fromARGB(255, 188, 236, 224)),
+        supportedLocales: L10n.all,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
         home: const PageConnection(),
       ),
     );
@@ -31,11 +41,8 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   Utilisateur? utilisateurLoggedIn;
-
   bool _darkMode = false;
-
   bool get darkMode => _darkMode;
-
   void changerModeSombre() {
     _darkMode = !_darkMode;
     notifyListeners();
@@ -94,25 +101,25 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addVote(Votes vote){
+  void addVote(Votes vote) {
     votesDesSondages.add(vote);
     notifyListeners();
   }
 
-  List<Votes> findAllVotesParSondage(Sondage sondage){
+  List<Votes> findAllVotesParSondage(Sondage sondage) {
     List<Votes> sondagesVotes = [];
-    for (var unVote in votesDesSondages){
-      if (unVote.sondage == sondage){
+    for (var unVote in votesDesSondages) {
+      if (unVote.sondage == sondage) {
         sondagesVotes.add(unVote);
       }
     }
     return sondagesVotes;
   }
 
-  bool hasVoted(Sondage sondage, Utilisateur? utilisateur){
+  bool hasVoted(Sondage sondage, Utilisateur? utilisateur) {
     List<Votes> sondagesVotes = findAllVotesParSondage(sondage);
-    for (var unVote in sondagesVotes){
-      if (unVote.utilisateur == utilisateur){
+    for (var unVote in sondagesVotes) {
+      if (unVote.utilisateur == utilisateur) {
         return true;
       }
     }

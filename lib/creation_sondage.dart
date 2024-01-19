@@ -4,9 +4,11 @@ import 'package:applicationsondage/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
-
 import 'PageFavoris.dart';
 import 'sondages.dart';
+import 'package:applicationsondage/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class CreationSondage extends StatelessWidget {
   const CreationSondage({Key? key});
@@ -20,6 +22,12 @@ class CreationSondage extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 246, 82, 160)),
           scaffoldBackgroundColor: const Color.fromARGB(255, 188, 236, 224)),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
       home: const PageCreation(title: 'Page de création du sondage'),
     );
   }
@@ -66,8 +74,8 @@ class _PageCreationState extends State<PageCreation> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const PageVisualiserSondages(
-                        title: 'Page de la liste des sondages',
+                      builder: (context) => PageVisualiserSondages(
+                        title: AppLocalizations.of(context)!.survey,
                       ),
                     ),
                   );
@@ -76,8 +84,8 @@ class _PageCreationState extends State<PageCreation> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const PageFavoris(
-                        title: 'Les sondages favoris',
+                      builder: (context) => PageFavoris(
+                        title: AppLocalizations.of(context)!.fav_survey,
                       ),
                     ),
                   );
@@ -92,20 +100,22 @@ class _PageCreationState extends State<PageCreation> {
                 }
               });
             },
-            tabs: const [
+            tabs: [
               GButton(
                 icon: Icons.home,
-                text: 'Home',
+                text: AppLocalizations.of(context)!.home_page,
               ),
               GButton(
                 icon: Icons.favorite,
-                text: 'Favoris',
+                text: AppLocalizations.of(context)!.favoris,
               ),
               GButton(
                 icon: Icons.add,
-                text: 'Ajouter',
+                text: AppLocalizations.of(context)!.add,
               ),
-              GButton(icon: Icons.account_circle, text: 'Profil')
+              GButton(
+                  icon: Icons.account_circle,
+                  text: AppLocalizations.of(context)!.profil)
             ],
           ),
         ),
@@ -117,8 +127,8 @@ class _PageCreationState extends State<PageCreation> {
           children: <Widget>[
             TextField(
               controller: _questionController,
-              decoration:
-                  const InputDecoration(labelText: 'Entrez votre question'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)?.enter_question),
             ),
             TextField(
               onChanged: (value) {
@@ -134,12 +144,12 @@ class _PageCreationState extends State<PageCreation> {
                 });
               },
               keyboardType: TextInputType.number,
-              decoration:
-                  const InputDecoration(labelText: 'Nombre de réponses'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)?.enter_nbr_answers),
             ),
             if (_nombresDeReponses > 4)
-              const Text(
-                'Le nombre de réponses ne peut pas dépasser 4.',
+              Text(
+                AppLocalizations.of(context)!.too_many_answers,
                 style: TextStyle(color: Colors.red),
               ),
             if (_nombresDeReponses < 5)
@@ -150,7 +160,7 @@ class _PageCreationState extends State<PageCreation> {
                 ),
             ElevatedButton(
               onPressed: _onSavePressed,
-              child: Text('Enregistrer'),
+              child: Text(AppLocalizations.of(context)!.save_btn),
             ),
           ],
         ),
@@ -193,8 +203,8 @@ class _PageCreationState extends State<PageCreation> {
 
     if (_isQuestionAlreadyExists(ques)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Un sondage avec la même question existe déjà!'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.survey_already_exists),
           duration: Duration(seconds: 2),
         ),
       );
@@ -202,8 +212,8 @@ class _PageCreationState extends State<PageCreation> {
       context.read<MyAppState>().addSondage(sondage);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Sondage créé avec succès!'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.success_creation),
           duration: Duration(seconds: 2),
         ),
       );

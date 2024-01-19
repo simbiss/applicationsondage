@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:applicationsondage/main.dart';
-
+import 'package:applicationsondage/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'creation_sondage.dart';
 
 class PageVisualiserSondages extends StatefulWidget {
@@ -39,7 +41,8 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
           Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-                "La liste des sondages, Bienvenue ${appState.utilisateurLoggedIn?.username}",
+                AppLocalizations.of(context)!.welcome_msg_liste_sondage(
+                    "${appState.utilisateurLoggedIn?.username.toString()}"),
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
@@ -79,22 +82,25 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Confirmation'),
-                                content: const Text(
-                                    'Êtes-vous sûr de vouloir supprimer ce sondage ?'),
+                                title: Text(
+                                    AppLocalizations.of(context)!.confirmation),
+                                content: Text(AppLocalizations.of(context)!
+                                    .delete_survey),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text('Annuler'),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .delete_cancel),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       appState.supprimerSondage(unSondage);
                                     },
-                                    child: Text('Supprimer'),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .delete_delete),
                                   ),
                                 ],
                               );

@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'main.dart';
 import 'pageInscription.dart' as pageInscription;
 import 'SourceBidon.dart' as SourceBidon;
+import 'package:applicationsondage/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class PageConnection extends StatelessWidget {
   const PageConnection({super.key});
@@ -18,6 +21,12 @@ class PageConnection extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 250, 73, 73)),
         useMaterial3: true,
       ),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
       home: const Connection(title: 'Application Sondage'),
     );
   }
@@ -70,16 +79,15 @@ class _ConnectionState extends State<Connection> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 25),
                 child: TextFormField(
                   controller: nomUtilisateurController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Nom Utilisateur"),
+                      labelText: AppLocalizations.of(context)?.username),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Un nom d\'utilisateur est requis';
+                      return AppLocalizations.of(context)?.errer_username;
                     }
                     return null;
                   },
@@ -91,11 +99,12 @@ class _ConnectionState extends State<Connection> {
                 child: TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(), labelText: "Mot de passe"),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)?.password),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Un mot de passe est requis';
+                      return AppLocalizations.of(context)?.errer_password;
                     }
                     return null;
                   },
@@ -121,20 +130,21 @@ class _ConnectionState extends State<Connection> {
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'Nom d\'utilisateur/Mot de passe incorrect'),
+                            SnackBar(
+                              content: Text(AppLocalizations.of(context)!
+                                  .msg_erreur_login),
                             ),
                           );
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Completer tous les champs')),
+                          SnackBar(
+                              content: Text(AppLocalizations.of(context)!
+                                  .incomplete_fields)),
                         );
                       }
                     },
-                    child: const Text('Connexion'),
+                    child: Text(AppLocalizations.of(context)!.sign_in),
                   ),
                 ),
               ),
@@ -151,7 +161,7 @@ class _ConnectionState extends State<Connection> {
                                   pageInscription.PageInscription()),
                         );
                       },
-                      child: const Text('Inscription',
+                      child: Text(AppLocalizations.of(context)!.sign_up,
                           style: TextStyle(
                               color: Color.fromARGB(255, 187, 34, 34),
                               decoration: TextDecoration.underline)),

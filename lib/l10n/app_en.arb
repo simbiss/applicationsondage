@@ -1,0 +1,192 @@
+{
+    "language": "English",
+    "@language": {
+        "description": "The current Language"
+    },
+    "username": "Username",
+    "@username": {
+        "description": "Username"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "User's password"
+    },
+    "password_confirmation": "Confirm Password",
+    "@password_confirmation": {
+        "description": "password confirmation in sign up form"
+    },
+    "sign_in": "Sign In",
+    "@sign_in": {
+        "description": "Sign indicator"
+    },
+    "sign_up": "Sign Up",
+    "@sign_up": {
+        "description": "Sign up indicator"
+    },
+    "errer_username": "A username is required",
+    "@errer_username": {
+        "description": "missing username in login form"
+    },
+    "errer_password": "A password is required",
+    "@errer_password": {
+        "description": "missing password in login form"
+    },
+    "errer_non_identical_password": "Passwords are not identical",
+    "@errer_non_identical_password": {
+        "description": "errer_non_identical_password"
+    },
+    "unvalide_username": "Username not available",
+    "@unvalide_username": {
+        "description": "unvalide_username"
+    },
+    "create_acc": "Create Account",
+    "@create_acc": {
+        "description": "create account button"
+    },
+    "invalid_info": "Invalid information",
+    "@invalid_info": {
+        "description": "erreur de champ login/signup"
+    },
+    "incomplete_fields": "Complete all fields",
+    "@incomplete_fields": {
+        "description": "Missing entries in form"
+    },
+    "msg_erreur_login": "Incorrect username/password",
+    "@msg_erreur_login": {
+        "description": "Incorrect login info"
+    },
+    "welcome_msg_liste_sondage": "List of surveys,\n Welcome {username}",
+    "@welcome_msg_liste_sondage": {
+        "description": "Welcome msg",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "nav_bar_home": "Home",
+    "@nav_bar_home": {
+        "description": "home msg"
+    },
+    "confirmation": "Confirmation",
+    "@confirmation": {
+        "description": "confirmation"
+    },
+    "delete_survey": "Are you sure you want to delete this survey?",
+    "@delete_survey": {
+        "description": "delete_survey"
+    },
+    "delete_cancel": "Cancel",
+    "@delete_cancel": {
+        "description": "delete_cancel"
+    },
+    "delete_delete": "Delete",
+    "@nav_bar_fav": {
+        "description": "fav msg"
+    },
+    "nav_bar_add": "Add",
+    "@nav_bar_add": {
+        "description": "add msg"
+    },
+    "nav_bar_profile": "Profile",
+    "@nav_bar_profile": {
+        "description": "Profile msg"
+    },
+    "created_by": "Created by: {username}",
+    "@created_by": {
+        "description": "author of the survey",
+        "placeholders": {
+            "username":{
+                "type": "String"
+            }
+        }
+    },
+    "btn_vote": "Vote",
+    "@btn_vote": {
+        "description": "Vote btn"
+    },
+    "btn_result": "See Results",
+    "@btn_result": {
+        "description": "1"
+    },
+    "opt_red": "Red",
+    "@opt_red": {
+        "description": "2"
+    },
+    "opt_green": "Green",
+    "@opt_green": {
+        "description": "3"
+    },
+    "opt_blue": "Blue",
+    "@opt_blue": {
+        "description": "4"
+    },
+    "opt_yellow": "Yellow",
+    "@opt_yellow": {
+        "description": "5"
+    },
+    "nbr_answers": "Number of respondents: ",
+    "@nbr_answers": {
+        "description": "nbr respons"
+    },
+    "btn_send": "Send",
+    "@btn_send": {
+        "description": "btn_send"
+    },
+    "erreur_send_vote": "Please choose an answer",
+    "@erreur_send_vote": {
+        "description": "erreur_send_vote"
+    },
+    "fav_survey": "Favorite survey",
+    "@fav_survey": {
+        "description": "fav_survey"
+    },
+    "enter_question": "Enter your question",
+    "@enter_question": {
+        "description": "enter_question"
+    },
+    "enter_nbr_answers": "Number of answers",
+    "@enter_nbr_answers": {
+        "description": "enter_nbr_answers"
+    },
+    "too_many_answers": "The number of answers cannot exceed 4",
+    "@too_many_answers": {
+        "description": "too_many_answers"
+    },
+    "answer_field": "Answer ",
+    "@answer_field": {
+        "description": ""
+    },
+    "save_btn": "Save",
+    "@save_btn": {
+        "description": "save_btn"
+    },
+    "success_creation": "Survey created successfully",
+    "@success_creation": {
+        "description": "success_creation"
+    },
+    "survey_already_exists": "A survey with the same question already exists",
+    "@survey_already_exists": {
+        "description": "survey_already_exists"
+    }, 
+    "favoris": "Favoris",
+    "@favoris": {
+        "description": "favoris"
+    },
+    "home_page": "Home",
+    "@success_creation": {
+        "description": "success_creation"
+    },
+    "add": "Add",
+    "@add": {
+        "description": "add"
+    },
+    "profil":"Profil",
+    "@profil": {
+        "description": "profil"
+    },
+    "survey": "survey",
+    "@survey": {
+        "description": "survey"
+    }
+}

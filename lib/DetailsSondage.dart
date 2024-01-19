@@ -9,6 +9,11 @@ import 'creation_sondage.dart';
 import 'main.dart';
 import 'Votes.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'creation_sondage.dart';
+import 'main.dart';
+import 'package:applicationsondage/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class DetailsSondages extends StatefulWidget {
   const DetailsSondages(
@@ -42,8 +47,8 @@ class _DetailsSondagesState extends State<DetailsSondages> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                child:
-                    Text("Créé par : ${widget.sondage.utilisateur?.username}"),
+                child: Text(AppLocalizations.of(context)!.created_by(
+                    "${widget.sondage.utilisateur?.username.toString()}")),
               ),
               IconButton(
                 onPressed: () {
@@ -81,59 +86,61 @@ class _DetailsSondagesState extends State<DetailsSondages> {
                 ),
               );
             },
-            child: const Text("Voter"),
+            child: Text(AppLocalizations.of(context)!.btn_vote),
           ),
           const SizedBox(
             height: 4,
           ),
-          if(appState.hasVoted(widget.sondage, appState.utilisateurLoggedIn) == true)
-          AspectRatio(
-            aspectRatio: 1,
-            child: PieChart(PieChartData(
-              sectionsSpace: 0,
-              centerSpaceRadius: 40,
-              sections: List.generate(
-                widget.sondage.listeReponses.entries.length,
-                (index) {
+          if (appState.hasVoted(widget.sondage, appState.utilisateurLoggedIn) ==
+              true)
+            AspectRatio(
+              aspectRatio: 1,
+              child: PieChart(PieChartData(
+                sectionsSpace: 0,
+                centerSpaceRadius: 40,
+                sections: List.generate(
+                  widget.sondage.listeReponses.entries.length,
+                  (index) {
+                    var uneReponse =
+                        widget.sondage.listeReponses.entries.elementAt(index);
+                    return PieChartSectionData(
+                      color: colorRotator(index),
+                      value: uneReponse.value.toDouble(),
+                      title: uneReponse.key,
+                      radius: 60,
+                      titleStyle: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [Shadow(color: Colors.black, blurRadius: 2)],
+                      ),
+                    );
+                  },
+                ),
+              )),
+            ),
+          if (appState.hasVoted(widget.sondage, appState.utilisateurLoggedIn) ==
+              true)
+            Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                    widget.sondage.listeReponses.entries.length, (index) {
                   var uneReponse =
                       widget.sondage.listeReponses.entries.elementAt(index);
-                  return PieChartSectionData(
-                    color: colorRotator(index),
-                    value: uneReponse.value.toDouble(),
-                    title: uneReponse.key,
-                    radius: 60,
-                    titleStyle: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: [Shadow(color: Colors.black, blurRadius: 2)],
-                    ),
+                  return Column(
+                    children: [
+                      Indicator(
+                        color: colorRotator(index),
+                        text: uneReponse.key,
+                        isSquare: true,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      )
+                    ],
                   );
-                },
-              ),
-            )),
-          ),
-          if(appState.hasVoted(widget.sondage, appState.utilisateurLoggedIn) == true)
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(widget.sondage.listeReponses.entries.length, 
-            (index) {
-              var uneReponse = widget.sondage.listeReponses.entries.elementAt(index);
-              return Column(
-                children: [
-                  Indicator(
-                    color: colorRotator(index),
-                    text: uneReponse.key,
-                    isSquare: true,
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  )
-                ],
-              );
-            })
-          ),
+                })),
           const SizedBox(
             width: 28,
           ),
