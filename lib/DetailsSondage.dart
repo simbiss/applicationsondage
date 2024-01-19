@@ -8,7 +8,6 @@ import 'indicator.dart';
 import 'creation_sondage.dart';
 import 'main.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'PageVisualiserSondage.dart';
 
 class DetailsSondages extends StatefulWidget {
   const DetailsSondages(
