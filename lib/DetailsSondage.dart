@@ -86,6 +86,7 @@ class _DetailsSondagesState extends State<DetailsSondages> {
           const SizedBox(
             height: 4,
           ),
+          if(appState.hasVoted(widget.sondage, appState.utilisateurLoggedIn) == true)
           AspectRatio(
             aspectRatio: 1,
             child: PieChart(PieChartData(
@@ -112,6 +113,7 @@ class _DetailsSondagesState extends State<DetailsSondages> {
               ),
             )),
           ),
+          if(appState.hasVoted(widget.sondage, appState.utilisateurLoggedIn) == true)
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,

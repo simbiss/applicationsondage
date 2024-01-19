@@ -100,7 +100,7 @@ class MyAppState extends ChangeNotifier {
     return sondagesVotes;
   }
 
-  bool hasVoted(Sondage sondage, Utilisateur utilisateur){
+  bool hasVoted(Sondage sondage, Utilisateur? utilisateur){
     List<Votes> sondagesVotes = findAllVotesParSondage(sondage);
     for (var unVote in sondagesVotes){
       if (unVote.utilisateur == utilisateur){
