@@ -1,4 +1,5 @@
 import 'package:applicationsondage/DetailsSondage.dart';
+import 'package:applicationsondage/PageCompte.dart';
 import 'package:applicationsondage/PageFavoris.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -122,6 +123,14 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
             onTabChange: (index) {
               setState(() {
                 selectedIndex = index;
+                if (index == 3) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PageCompteUtilisateur(),
+                    ),
+                  );
+                }
                 if (index == 2) {
                   Navigator.push(
                     context,
