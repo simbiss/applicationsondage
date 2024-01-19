@@ -31,6 +31,15 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   Utilisateur? utilisateurLoggedIn;
 
+  bool _darkMode = false;
+
+  bool get darkMode => _darkMode;
+
+  void changerModeSombre() {
+    _darkMode = !_darkMode;
+    notifyListeners();
+  }
+
   var sondages = <Sondage>[
     Sondage(
         id: 1,
