@@ -94,14 +94,16 @@ class _PageVisualiserSondagesState extends State<PageVisualiserSondages> {
                                     child: Text(AppLocalizations.of(context)!
                                         .delete_cancel),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      appState.supprimerSondage(unSondage);
-                                    },
-                                    child: Text(AppLocalizations.of(context)!
-                                        .delete_delete),
-                                  ),
+                                  if (appState.utilisateurLoggedIn?.username ==
+                                      unSondage.utilisateur?.username)
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        appState.supprimerSondage(unSondage);
+                                      },
+                                      child: Text(AppLocalizations.of(context)!
+                                          .delete_delete),
+                                    ),
                                 ],
                               );
                             },
